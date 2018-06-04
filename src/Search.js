@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Form } from 'semantic-ui-react';
+import { Container, Form, Icon } from 'semantic-ui-react';
 import ImgContainer from './ImgContainer';
+import DropSearch from './DropSearch';
 import axios from 'axios';
 import './css/Search.css';
 
@@ -9,15 +10,13 @@ class Search extends Component {
     super();
     
     this.state= {
-      term: 'test',
-      newTerm: '',
+      term: '',
       loading: false,
       imgData: false,
       i: 0,
       offset: 5,
     };
 
-    this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.turn = this.turn.bind(this);
   }
@@ -26,19 +25,13 @@ class Search extends Component {
     document.addEventListener("keydown", this.turn, false);
   }
 
-  onChange(e) {
-    this.setState({ newTerm: e.target.value });
-  }
-
   async onSubmit(e) {
     e.preventDefault();
-    
     const term = this.state.newTerm.replace(/[^\w\d\s]/g, '');
     this.setState({ term, loading: true });
-
     const res = await axios(`http://api.giphy.com/v1/gifs/search?q=${term}&api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=6`);
     if (res.status === 200) {
-      this.setState({ imgData: res.data.data, loading: false, i: 0, offset: 5 });
+      this.setState({ imgData: res.data.data, loading: false, i: 0, offset: 5, prevTerms: [...this.state.prevTerms, term] });
     } else {
       // TODO: Handle error.
     }
@@ -84,7 +77,8 @@ class Search extends Component {
       <Container fluid>
         <Form onSubmit={this.onSubmit}>
           <Form.Field className="searchBar">
-            <Form.Input 
+            <DropSearch />
+            {/* <Form.Input 
               placeholder="Search gifs..."
               autoComplete="off"
               name="search"
@@ -92,7 +86,7 @@ class Search extends Component {
               onChange={this.onChange}
               loading={this.state.loading}
               fluid
-            />
+            /> */}
           </Form.Field>
         </Form>
         { this.state.imgData ? <ImgContainer data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
