@@ -37,6 +37,6 @@ div.imgContainer i.angle.left.icon {
   float: left;
 }
 
-div.ui.fluid.container:hover i.angle.icon {
+div.imgContainer:hover i.angle.icon {
   visibility: visible;
 }

@@ -38,7 +38,7 @@ class Search extends Component {
 
     const res = await axios(`http://api.giphy.com/v1/gifs/search?q=${term}&api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=6`);
     if (res.status === 200) {
-      this.setState({ imgData: res.data.data, loading: false, i: 0 });
+      this.setState({ imgData: res.data.data, loading: false, i: 0, offset: 5 });
     } else {
       // TODO: Handle error.
     }
@@ -58,6 +58,7 @@ class Search extends Component {
 
   turn(e) {
     // Handle incrementing / decrementing with either keys or arrow clicks.
+    // TODO: I want it to switch to the (loading) preview as soon as turned.
     if (e.type === 'click') {
       if (e.target.classList.contains('left')) {
         if (this.state.i > 0) this.setState({ i: this.state.i-1 });

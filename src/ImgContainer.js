@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Image, Header, Icon } from 'semantic-ui-react';
+import { Image, Header, Icon, Loader, Dimmer } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import './css/Image.css';
 
@@ -10,8 +10,10 @@ class ImgContainer extends Component {
     this.state = {
       url: '',
       title: '',
+      loading: true,
     };
 
+    this.loaded = this.loaded.bind(this);
   }
 
   componentDidMount() {
@@ -32,21 +34,30 @@ class ImgContainer extends Component {
       this.setState({
         url,
         title,
+        loading: true,
       });
     }
+  }
+
+  loaded() {
+    console.log('finished loading');
+    this.setState({ loading: false });
   }
 
   render() {
     return (
       <Fragment>
         <Header className="imgTitle" as="h3">
-          {this.state.title}
+          {this.state.loading ? '' : this.state.title}
         </Header>
         <div className="imgContainer">
+          <Dimmer active={this.state.loading}>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
           <Image
             src={this.state.url}
+            onLoad={this.loaded}
             centered
-            loading={this.props.loading}
           />
           <Icon onClick={this.props.turn} name="angle left" />
           <Icon onClick={this.props.turn} name="angle right" />
