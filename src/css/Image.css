@@ -1,0 +1,42 @@
+div.ui.container img.ui.image {
+  margin: auto;
+}
+
+div.ui.container h3.ui.header.imgTitle {
+  color: inherit;
+  margin: 2em 0 0 0;
+  padding-bottom: .5em;
+}
+
+
+i.angle.right.icon {
+  position: relative;  
+}
+
+div.imgContainer {
+  position: relative;
+  display: inline-block;
+}
+
+div.imgContainer i.angle.icon {
+  position: absolute;
+  top: 41%;
+  left: 0;
+  font-size: 2em;
+  visibility: hidden;
+  cursor: pointer;
+  margin: 0;
+
+}
+
+div.imgContainer i.angle.right.icon {
+  left: calc(100% - 1.2em);
+}
+
+div.imgContainer i.angle.left.icon {
+  float: left;
+}
+
+div.ui.fluid.container:hover i.angle.icon {
+  visibility: visible;
+}
