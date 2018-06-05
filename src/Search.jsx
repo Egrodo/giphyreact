@@ -74,7 +74,7 @@ class Search extends Component {
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
-      // TODO: If the text box is focused, return.
+      // BUG: Will still step if I'm using arrows to nav input box.
 
       // Don't let step if more posts haven't finished loading yet.
       if (!this.state.imgData) return;

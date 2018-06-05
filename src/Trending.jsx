@@ -74,7 +74,7 @@ class Trending extends Component {
           doubling
           container
         >
-          { this.state.imgData.map(val => <TrendingImg data={val} />) }
+          { this.state.imgData.map(val => <TrendingImg data={val} key={`${val.id}`} />) }
         </Grid>
       </Container>
     );
