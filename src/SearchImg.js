@@ -3,13 +3,14 @@ import { Image, Header, Icon, Loader, Dimmer } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import './css/SearchImg.css';
 
-class ImgContainer extends Component {
+class SearchImg extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      url: '',
+      src: '',
       title: '',
+      url: '',
       loading: true,
     };
 
@@ -19,20 +20,22 @@ class ImgContainer extends Component {
   componentDidMount() {
     const { data } = this.props;
     this.setState({
-      url: data.images.original.url,
+      src: data.images.original.url,
       title: data.title,
+      url: data.url,
+      loading: true,
     });
   }
 
   componentWillReceiveProps(nextProps) {
     // If something new is searched, update the image.
     const { data } = nextProps;
-    const url = data.images.original.url;
-    const title = data.title;
-    if (this.state.url !== url) {
+    const src = data.images.original.url;
+    if (this.state.src !== src) {
       this.setState({
-        url,
-        title,
+        src,
+        title: data.title,
+        url: data.url,
         loading: true,
       });
     }
@@ -45,15 +48,23 @@ class ImgContainer extends Component {
   render() {
     return (
       <Fragment>
-        <Header className="imgTitle" as="h3">
-          {this.state.loading ? '' : this.state.title}
+        <Header
+          className="imgTitle"
+          as="h3"
+        >
+          {this.state.loading ? '' : ( 
+            <a href={this.state.url} target="_blank" rel="noopener">
+              { this.state.title }
+            </a>
+          )}
         </Header>
-        <div className="imgContainer">
+        <div className="SearchImg">
           <Dimmer active={this.state.loading}>
             <Loader inverted>Loading</Loader>
           </Dimmer>
           <Image
-            src={this.state.url}
+            src={this.state.src}
+            title={this.state.title}
             onLoad={this.loaded}
             centered
           />
@@ -65,10 +76,10 @@ class ImgContainer extends Component {
   }
 }
 
-ImgContainer.propTypes = {
+SearchImg.propTypes = {
   data: PropTypes.object,
   turn: PropTypes.func,
   loading: PropTypes.bool,
 };
 
-export default ImgContainer;
+export default SearchImg;

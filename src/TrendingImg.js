@@ -11,7 +11,6 @@ class TrendingImg extends PureComponent {
       title: '',
       url: '',
     };
-
   }
   
   componentDidMount() {
@@ -28,7 +27,7 @@ class TrendingImg extends PureComponent {
       <Grid.Column>
         <Image
           src={this.state.src}
-          alt={this.state.title}
+          title={this.state.title}
           href={this.state.url}
           target="_blank"
           rel="noopener"

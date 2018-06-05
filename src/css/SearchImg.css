@@ -4,21 +4,24 @@ div.ui.container img.ui.image {
 
 div.ui.container h3.ui.header.imgTitle {
   color: inherit;
-  margin: 2em 0 0 0;
-  padding-bottom: .5em;
+  margin: 2em 0 .5em 0;
 }
 
+h3.ui.header.imgTitle a {
+  color: inherit;
+  size: inherit;
+}
 
 i.angle.right.icon {
   position: relative;  
 }
 
-div.imgContainer {
+div.SearchImg {
   position: relative;
   display: inline-block;
 }
 
-div.imgContainer i.angle.icon {
+div.SearchImg i.angle.icon {
   position: absolute;
   top: 41%;
   left: 0;
@@ -29,14 +32,14 @@ div.imgContainer i.angle.icon {
 
 }
 
-div.imgContainer i.angle.right.icon {
+div.SearchImg i.angle.right.icon {
   left: calc(100% - 1.2em);
 }
 
-div.imgContainer i.angle.left.icon {
+div.SearchImg i.angle.left.icon {
   float: left;
 }
 
-div.imgContainer:hover i.angle.icon {
+div.SearchImg:hover i.angle.icon {
   visibility: visible;
 }
