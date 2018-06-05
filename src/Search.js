@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, Icon } from 'semantic-ui-react';
-import ImgContainer from './ImgContainer';
+import SearchImg from './SearchImg';
 import DropSearch from './DropSearch';
 import axios from 'axios';
 import './css/Search.css';
@@ -9,7 +9,7 @@ class Search extends Component {
   constructor() {
     super();
     
-    this.state= {
+    this.state = {
       term: '',
       newTerm: '',
       loading: false,
@@ -74,10 +74,9 @@ class Search extends Component {
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
-      // If the text box is focused, return.
+      // TODO: If the text box is focused, return.
+      // Don't let step if more posts haven't finished loading yet.
       if (!this.state.imgData) return;
-
-      // ^ TODO: Don't let step if more posts haven't finished loading yet.
       if (this.state.imgData.length < this.state.offset) return;
       if (e.key === 'ArrowLeft' && this.state.i > 0) {
         this.setState({ i: this.state.i-1 });
@@ -93,6 +92,7 @@ class Search extends Component {
         <Form onSubmit={this.onSubmit}>
           <Form.Field className="searchBar">
             {/* <DropSearch /> */}
+            <h4>Search</h4>
             <Form.Input 
               placeholder="Search gifs..."
               autoComplete="off"
@@ -105,7 +105,7 @@ class Search extends Component {
             />
           </Form.Field>
         </Form>
-        { Object.keys(this.state.imgData).length ? <ImgContainer data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
+        { Object.keys(this.state.imgData).length ? <SearchImg data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
       </Container>
     );
   }

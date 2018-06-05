@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Image, Header, Icon, Loader, Dimmer } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import './css/Image.css';
+import './css/SearchImg.css';
 
 class ImgContainer extends Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class ImgContainer extends Component {
   }
 
   componentDidMount() {
-    // On first load of component.
     const { data } = this.props;
     this.setState({
       url: data.images.original.url,

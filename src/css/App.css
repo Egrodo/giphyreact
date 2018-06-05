@@ -3,11 +3,13 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 20px;
 }
-
 div.ui.app.container {
-  margin: 2em;
   color: #fff;
-  width: 60vw;
+}
+
+div.ui.app.container > div {
+  margin: 2em;
+
 }
 
 h1.ui.header {
