@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 class TrendingImg extends PureComponent {
   constructor(props) {
     super(props);
-    
     this.state = {
       src: '',
       title: '',
       url: '',
     };
   }
-  
+
   componentDidMount() {
     const { data } = this.props;
     this.setState({
@@ -38,9 +37,12 @@ class TrendingImg extends PureComponent {
   }
 }
 
-// TODO: Better typechecking.
 TrendingImg.propTypes = {
   data: PropTypes.object,
+};
+
+TrendingImg.defaultProps = {
+  data: {},
 };
 
 export default TrendingImg;

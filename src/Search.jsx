@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Form, Icon } from 'semantic-ui-react';
-import SearchImg from './SearchImg';
-import DropSearch from './DropSearch';
 import axios from 'axios';
+import SearchImg from './reusables/SearchImg';
 import './css/Search.css';
 
 class Search extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       term: '',
       newTerm: '',
@@ -26,7 +25,7 @@ class Search extends Component {
 
   componentDidMount() {
     // Allow for arrow key image navigation.
-    document.addEventListener("keydown", this.turn, false);
+    document.addEventListener('keydown', this.turn, false);
   }
 
   onChange(e) {
@@ -52,14 +51,14 @@ class Search extends Component {
   async loadMore() {
     this.setState({ loading: true });
     // TODO: .env vars
-    const call = `http://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset+1}`;
+    const call = `http://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset + 1}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
         imgData: [...this.state.imgData, ...res.data.data],
         loading: false,
-        i: this.state.i+1,
-        offset: this.state.offset+5
+        i: this.state.i + 1,
+        offset: this.state.offset + 5,
       });
     } else console.error(res.error);
   }
@@ -68,10 +67,10 @@ class Search extends Component {
     // Handle incrementing / decrementing with either keys or arrow clicks.
     if (e.type === 'click') {
       if (e.target.classList.contains('left')) {
-        if (this.state.i > 0) this.setState({ i: this.state.i-1 });
+        if (this.state.i > 0) this.setState({ i: this.state.i - 1 });
       } else if (e.target.classList.contains('right')) {
         if (this.state.i < this.state.offset) {
-          this.setState({ i: this.state.i+1 });
+          this.setState({ i: this.state.i + 1 });
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
@@ -81,11 +80,11 @@ class Search extends Component {
       if (!this.state.imgData) return;
       if (this.state.imgData.length < this.state.offset) return;
       if (e.key === 'ArrowLeft' && this.state.i > 0) {
-        this.setState({ i: this.state.i-1 });
+        this.setState({ i: this.state.i - 1 });
       } else if (e.key === 'ArrowRight' && this.state.i < this.state.offset) {
-        this.setState({ i: this.state.i+1 });
+        this.setState({ i: this.state.i + 1 });
       } else this.loadMore();
-    } else console.error('Unrecognized event type: ' + e.type);
+    } else console.error(`Unrecognized event type: ${e.type}.`);
   }
 
   hideSearched() {
@@ -104,9 +103,8 @@ class Search extends Component {
       <Container fluid>
         <Form onSubmit={this.onSubmit}>
           <Form.Field className="searchBar">
-            {/* <DropSearch /> */}
             <h4>Search</h4>
-            <Form.Input 
+            <Form.Input
               placeholder="Search gifs..."
               autoComplete="off"
               name="search"
@@ -114,7 +112,7 @@ class Search extends Component {
               value={this.state.newTerm}
               onChange={this.onChange}
               loading={this.state.loading}
-              icon={ this.state.imgData.length ? (
+              icon={this.state.imgData.length ? (
                 <Icon
                   title="Hide"
                   name="cancel"
@@ -126,7 +124,7 @@ class Search extends Component {
             />
           </Form.Field>
         </Form>
-        { this.state.imgData.length ? <SearchImg data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
+        { this.state.imgData.length ? <SearchImg data={this.state.imgData[this.state.i]} turn={this.turn} /> : '' }
       </Container>
     );
   }

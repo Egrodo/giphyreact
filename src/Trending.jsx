@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Image, Header, Grid } from 'semantic-ui-react';
-import TrendingImg from './TrendingImg';
-import './css/Trending.css';
+import { Container, Header, Grid } from 'semantic-ui-react';
 import axios from 'axios';
+import TrendingImg from './reusables/TrendingImg';
+import './css/Trending.css';
 
 class Trending extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Trending extends Component {
     this.onScroll = this.onScroll.bind(this);
     this.loadMore = this.loadMore.bind(this);
   }
-  
+
   async componentDidMount() {
     // TODO: Dynamically calculate limit based on screen size.
     const limit = 12;
@@ -30,19 +30,25 @@ class Trending extends Component {
     } else console.error(res.error);
     document.addEventListener('scroll', this.onScroll);
   }
-  
+
   componentWillUnmount() {
     document.removeEventListener('scroll', this.onScroll);
   }
-  
+
   onScroll() {
     // Handle page scroll for infinite gifs.
-    const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
     const body = document.body;
     const html = document.documentElement;
-    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight,
+    );
     const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight-1) this.loadMore();
+    if (windowBottom >= docHeight - 1) this.loadMore();
   }
 
   async loadMore() {
@@ -52,7 +58,7 @@ class Trending extends Component {
     if (res.status === 200) {
       this.setState({
         imgData: [...this.state.imgData, ...res.data.data],
-        offset: this.state.offset+12,
+        offset: this.state.offset + 12,
       });
     } else console.error(res.error);
   }
@@ -68,7 +74,7 @@ class Trending extends Component {
           doubling
           container
         >
-          { this.state.imgData.map((val, i) => <TrendingImg data={val} key={i} />) }
+          { this.state.imgData.map(val => <TrendingImg data={val} />) }
         </Grid>
       </Container>
     );

@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Image, Header, Icon, Loader, Dimmer } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import './css/SearchImg.css';
+import '../css/SearchImg.css';
 
 class SearchImg extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       src: '',
       title: '',
@@ -19,6 +19,7 @@ class SearchImg extends Component {
 
   componentDidMount() {
     const { data } = this.props;
+    console.log(this.props.data);
     this.setState({
       src: data.images.original.url,
       title: data.title,
@@ -52,7 +53,7 @@ class SearchImg extends Component {
           className="imgTitle"
           as="h3"
         >
-          {this.state.loading ? '' : ( 
+          {this.state.loading ? '' : (
             <a href={this.state.url} target="_blank" rel="noopener">
               { this.state.title }
             </a>
@@ -79,7 +80,11 @@ class SearchImg extends Component {
 SearchImg.propTypes = {
   data: PropTypes.object,
   turn: PropTypes.func,
-  loading: PropTypes.bool,
+};
+
+SearchImg.defaultProps = {
+  data: {},
+  turn: (() => console.error('Turn function not passed to SearchImg')),
 };
 
 export default SearchImg;
