@@ -13,11 +13,12 @@ class Search extends Component {
       term: '',
       newTerm: '',
       loading: false,
-      imgData: {},
+      imgData: [],
       i: 0,
       offset: 5,
     };
 
+    this.hideSearched = this.hideSearched.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.turn = this.turn.bind(this);
@@ -36,7 +37,7 @@ class Search extends Component {
     e.preventDefault();
     const term = this.state.newTerm.replace(/[^\w\d\s]/g, '');
     this.setState({ term, loading: true });
-    const call = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=6`;
+    const call = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=${process.env.REACT_APP_API_KEY}&limit=6`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -49,9 +50,9 @@ class Search extends Component {
   }
 
   async loadMore() {
-    // BUG: 5 and 6 are the same ? Something to do with the offset and limit.
     this.setState({ loading: true });
-    const call = `http://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=5&offset=${this.state.offset}`;
+    // TODO: .env vars
+    const call = `http://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset+1}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -75,6 +76,7 @@ class Search extends Component {
       }
     } else if (e.type === 'keydown') {
       // TODO: If the text box is focused, return.
+
       // Don't let step if more posts haven't finished loading yet.
       if (!this.state.imgData) return;
       if (this.state.imgData.length < this.state.offset) return;
@@ -82,8 +84,19 @@ class Search extends Component {
         this.setState({ i: this.state.i-1 });
       } else if (e.key === 'ArrowRight' && this.state.i < this.state.offset) {
         this.setState({ i: this.state.i+1 });
-      } else if (this.state.i === this.state.offset) this.loadMore();
+      } else this.loadMore();
     } else console.error('Unrecognized event type: ' + e.type);
+  }
+
+  hideSearched() {
+    this.setState({
+      term: '',
+      newTerm: '',
+      imgData: [],
+      i: 0,
+      offset: 5,
+      loading: false,
+    });
   }
 
   render() {
@@ -101,11 +114,19 @@ class Search extends Component {
               value={this.state.newTerm}
               onChange={this.onChange}
               loading={this.state.loading}
+              icon={ this.state.imgData.length ? (
+                <Icon
+                  title="Hide"
+                  name="cancel"
+                  onClick={this.hideSearched}
+                  link
+                />
+              ) : {}}
               fluid
             />
           </Form.Field>
         </Form>
-        { Object.keys(this.state.imgData).length ? <SearchImg data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
+        { this.state.imgData.length ? <SearchImg data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
       </Container>
     );
   }

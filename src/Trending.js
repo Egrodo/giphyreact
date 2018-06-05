@@ -18,9 +18,9 @@ class Trending extends Component {
   }
   
   async componentDidMount() {
-    // TODO: Dynamically get limit based on screen size.
+    // TODO: Dynamically calculate limit based on screen size.
     const limit = 12;
-    const call = `http://api.giphy.com/v1/gifs/trending?api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=${limit}`;
+    const call = `http://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=${limit}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -47,7 +47,7 @@ class Trending extends Component {
 
   async loadMore() {
     // Load more and append to bottom of list.
-    const call = `http://api.giphy.com/v1/gifs/trending?api_key=Ff0QfFPN2LB3Y1biNflQAV1K5AHio8gW&limit=12&offset=${this.state.offset}`;
+    const call = `http://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=12&offset=${this.state.offset}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -60,8 +60,14 @@ class Trending extends Component {
   render() {
     return (
       <Container className="trending">
-        <Header as="h4">Trending GIFS</Header>
-        <Grid stackable doubling container columns={4}>
+        <Header as="h4">Trending</Header>
+        <Grid
+          verticalAlign="middle"
+          columns={4}
+          stackable
+          doubling
+          container
+        >
           { this.state.imgData.map((val, i) => <TrendingImg data={val} key={i} />) }
         </Grid>
       </Container>

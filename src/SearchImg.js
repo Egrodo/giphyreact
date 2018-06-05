@@ -39,7 +39,6 @@ class ImgContainer extends Component {
   }
 
   loaded() {
-    console.log('finished loading');
     this.setState({ loading: false });
   }
 
