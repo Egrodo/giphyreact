@@ -13,7 +13,7 @@ class Search extends Component {
       term: '',
       newTerm: '',
       loading: false,
-      imgData: false,
+      imgData: {},
       i: 0,
       offset: 5,
     };
@@ -76,6 +76,7 @@ class Search extends Component {
     } else if (e.type === 'keydown') {
       // If the text box is focused, return.
       if (!this.state.imgData) return;
+
       // ^ TODO: Don't let step if more posts haven't finished loading yet.
       if (this.state.imgData.length < this.state.offset) return;
       if (e.key === 'ArrowLeft' && this.state.i > 0) {
@@ -104,7 +105,7 @@ class Search extends Component {
             />
           </Form.Field>
         </Form>
-        { this.state.imgData ? <ImgContainer data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
+        { Object.keys(this.state.imgData).length ? <ImgContainer data={this.state.imgData[this.state.i]} turn={this.turn} loading={this.loading} /> : '' }
       </Container>
     );
   }
