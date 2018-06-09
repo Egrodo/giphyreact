@@ -36,7 +36,7 @@ class Search extends Component {
     e.preventDefault();
     const term = this.state.newTerm.replace(/[^\w\d\s]/g, '');
     this.setState({ term, loading: true });
-    const call = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=${process.env.REACT_APP_API_KEY}&limit=6`;
+    const call = `https://api.giphy.com/v1/gifs/search?q=${term}&api_key=${process.env.REACT_APP_API_KEY}&limit=6`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -51,7 +51,7 @@ class Search extends Component {
   async loadMore() {
     this.setState({ loading: true });
     // TODO: .env vars
-    const call = `http://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset + 1}`;
+    const call = `https://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset + 1}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({

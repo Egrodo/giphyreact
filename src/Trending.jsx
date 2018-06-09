@@ -20,7 +20,7 @@ class Trending extends Component {
   async componentDidMount() {
     // TODO: Dynamically calculate limit based on screen size.
     const limit = 12;
-    const call = `http://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=${limit}`;
+    const call = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=${limit}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
@@ -53,7 +53,7 @@ class Trending extends Component {
 
   async loadMore() {
     // Load more and append to bottom of list.
-    const call = `http://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=12&offset=${this.state.offset}`;
+    const call = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=12&offset=${this.state.offset}`;
     const res = await axios(call);
     if (res.status === 200) {
       this.setState({
