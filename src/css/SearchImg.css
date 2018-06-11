@@ -4,24 +4,29 @@ div.ui.container img.ui.image {
 div.ui.container h3.ui.header.imgTitle {
   color: inherit;
   margin: 2em 0 .5em 0; }
-  div.ui.container h3.ui.header.imgTitle a {
-    color: inherit;
-    font-size: inherit; }
+
+div.ui.container h3.ui.header.imgTitle a {
+  color: inherit;
+  font-size: inherit; }
 
 div.SearchImg {
   position: relative;
   display: inline-block; }
-  div.SearchImg i.angle.icon {
-    position: absolute;
-    top: 41%;
-    left: 0;
-    font-size: 2em;
-    visibility: hidden;
-    cursor: pointer;
-    margin: 0; }
-    div.SearchImg i.angle.icon.right {
-      left: calc(100% - 1.2em); }
-    div.SearchImg i.angle.icon.left {
-      float: left; }
-  div.SearchImg:hover i.angle.icon {
-    visibility: visible; }
+
+div.SearchImg i.angle.icon {
+  position: absolute;
+  top: 41%;
+  left: 0;
+  font-size: 2em;
+  visibility: hidden;
+  cursor: pointer;
+  margin: 0; }
+
+div.SearchImg i.angle.icon.right {
+  left: calc(100% - 1.2em); }
+
+div.SearchImg i.angle.icon.left {
+  float: left; }
+
+div.SearchImg:hover i.angle.icon {
+  visibility: visible; }

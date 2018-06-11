@@ -7,7 +7,7 @@ import './css/App.css';
 const App = () => (
   <Container className="app" textAlign="center" fluid>
     <div>
-      <Header as="h1" size="large">Marvel Giphy</Header>
+      <Header as="h1" size="large">Giphy Webapp</Header>
       <Search />
     </div>
     <Trending />

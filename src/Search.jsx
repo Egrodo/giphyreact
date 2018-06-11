@@ -18,17 +18,25 @@ class Search extends Component {
       offset: 5,
     };
 
-    this.hideSearched = this.hideSearched.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
     this.turn = this.turn.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.hideSearched = this.hideSearched.bind(this);
   }
 
   componentDidMount() {
     // Allow for arrow key image navigation.
     document.addEventListener('keydown', this.turn, false);
+  }
+
+  onFocus() {
+    this.setState({ focused: true });
+  }
+
+  onBlur() {
+    this.setState({ focused: false });
   }
 
   onChange(e) {
@@ -51,17 +59,8 @@ class Search extends Component {
     } else console.error(res.error);
   }
 
-  onFocus() {
-    this.setState({ focused: true });
-  }
-
-  onBlur() {
-    this.setState({ focused: false });
-  }
-
   async loadMore() {
     this.setState({ loading: true });
-    // TODO: .env vars
     const call = `https://api.giphy.com/v1/gifs/search?q=${this.state.term}&api_key=${process.env.REACT_APP_API_KEY}&limit=5&offset=${this.state.offset + 1}`;
     const res = await axios(call);
     if (res.status === 200) {
@@ -85,7 +84,7 @@ class Search extends Component {
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
-      // Ignore if no data, input box is focused, or we're ahead of the offset.
+      // Ignore if: no data, input box is focused, or we're ahead of the offset.
       if (!this.state.imgData || this.state.focused) return;
       if (this.state.imgData.length < this.state.offset) return;
 
