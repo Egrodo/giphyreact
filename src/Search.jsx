@@ -12,6 +12,7 @@ class Search extends Component {
       term: '',
       newTerm: '',
       loading: false,
+      focused: false,
       imgData: [],
       i: 0,
       offset: 5,
@@ -20,6 +21,8 @@ class Search extends Component {
     this.hideSearched = this.hideSearched.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.turn = this.turn.bind(this);
   }
 
@@ -48,6 +51,14 @@ class Search extends Component {
     } else console.error(res.error);
   }
 
+  onFocus() {
+    this.setState({ focused: true });
+  }
+
+  onBlur() {
+    this.setState({ focused: false });
+  }
+
   async loadMore() {
     this.setState({ loading: true });
     // TODO: .env vars
@@ -74,16 +85,19 @@ class Search extends Component {
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
-      // BUG: Will still step if I'm using arrows to nav input box.
-
-      // Don't let step if more posts haven't finished loading yet.
-      if (!this.state.imgData) return;
+      // Ignore if no data, input box is focused, or we're ahead of the offset.
+      if (!this.state.imgData || this.state.focused) return;
       if (this.state.imgData.length < this.state.offset) return;
-      if (e.key === 'ArrowLeft' && this.state.i > 0) {
-        this.setState({ i: this.state.i - 1 });
-      } else if (e.key === 'ArrowRight' && this.state.i < this.state.offset) {
-        this.setState({ i: this.state.i + 1 });
-      } else this.loadMore();
+
+      if (e.key === 'ArrowLeft') {
+        if (this.state.i > 0) {
+          this.setState({ i: this.state.i - 1 });
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (this.state.i < this.state.offset) {
+          this.setState({ i: this.state.i + 1 });
+        } else this.loadMore();
+      }
     } else console.error(`Unrecognized event type: ${e.type}.`);
   }
 
@@ -102,7 +116,7 @@ class Search extends Component {
     return (
       <Container fluid>
         <Form onSubmit={this.onSubmit}>
-          <Form.Field className="searchBar">
+          <Form.Field className="search-input">
             <h4>Search</h4>
             <Form.Input
               placeholder="Search gifs..."
@@ -111,6 +125,8 @@ class Search extends Component {
               type="text"
               value={this.state.newTerm}
               onChange={this.onChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
               loading={this.state.loading}
               icon={this.state.imgData.length ? (
                 <Icon

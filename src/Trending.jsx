@@ -10,7 +10,6 @@ class Trending extends Component {
     this.state = {
       imgData: [],
       offset: 0,
-      message: '',
     };
 
     this.onScroll = this.onScroll.bind(this);
