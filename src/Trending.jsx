@@ -10,13 +10,13 @@ class Trending extends Component {
     this.state = {
       imgData: [],
       offset: 0,
-      message: '',
     };
 
     this.onScroll = this.onScroll.bind(this);
     this.loadMore = this.loadMore.bind(this);
   }
 
+  // TODO: https://codepen.io/SimonEvans/pen/Qqjxde User interaction observer to de-render images not on screen anymore.
   async componentDidMount() {
     // TODO: Dynamically calculate limit based on screen size.
     const limit = 12;
@@ -38,7 +38,7 @@ class Trending extends Component {
   onScroll() {
     // Handle page scroll for infinite gifs.
     const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
-    const body = document.body;
+    const { body } = document;
     const html = document.documentElement;
     const docHeight = Math.max(
       body.scrollHeight,
