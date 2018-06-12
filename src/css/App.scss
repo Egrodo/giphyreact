@@ -1,13 +1,17 @@
 body {
   background-color: #373844;
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 20px; }
+  font-size: 20px;
+}
 
 div.ui.app.container {
-  color: #fff; }
-  div.ui.app.container > div {
-    margin: 2em; }
+  color: #fff;
+  > div {
+    margin: 2em;
+  }
+}
 
 h1.ui.header {
   color: inherit;
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+}

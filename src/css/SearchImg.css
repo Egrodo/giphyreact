@@ -1,25 +1,17 @@
 div.ui.container img.ui.image {
-  margin: auto;
-}
+  margin: auto; }
 
 div.ui.container h3.ui.header.imgTitle {
   color: inherit;
-  margin: 2em 0 .5em 0;
-}
+  margin: 2em 0 .5em 0; }
 
-h3.ui.header.imgTitle a {
+div.ui.container h3.ui.header.imgTitle a {
   color: inherit;
-  size: inherit;
-}
-
-i.angle.right.icon {
-  position: relative;  
-}
+  font-size: inherit; }
 
 div.SearchImg {
   position: relative;
-  display: inline-block;
-}
+  display: inline-block; }
 
 div.SearchImg i.angle.icon {
   position: absolute;
@@ -28,18 +20,13 @@ div.SearchImg i.angle.icon {
   font-size: 2em;
   visibility: hidden;
   cursor: pointer;
-  margin: 0;
+  margin: 0; }
 
-}
+div.SearchImg i.angle.icon.right {
+  left: calc(100% - 1.2em); }
 
-div.SearchImg i.angle.right.icon {
-  left: calc(100% - 1.2em);
-}
-
-div.SearchImg i.angle.left.icon {
-  float: left;
-}
+div.SearchImg i.angle.icon.left {
+  float: left; }
 
 div.SearchImg:hover i.angle.icon {
-  visibility: visible;
-}
+  visibility: visible; }

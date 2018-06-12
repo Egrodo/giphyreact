@@ -4,16 +4,14 @@ import Search from './Search';
 import Trending from './Trending';
 import './css/App.css';
 
-const App = () => {
-  return (
-    <Container className="app" textAlign="center" fluid>
-      <div>
-        <Header as="h1" size="large">Marvel Giphy</Header>
-        <Search />
-      </div>
-      <Trending />
-    </Container>
-  );
-}
+const App = () => (
+  <Container className="app" textAlign="center" fluid>
+    <div>
+      <Header as="h1" size="large">Giphy Webapp</Header>
+      <Search />
+    </div>
+    <Trending />
+  </Container>
+);
 
 export default App;

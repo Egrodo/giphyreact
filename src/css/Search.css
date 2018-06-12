@@ -1,13 +1,7 @@
 form.ui.form {
-  text-align: center;
-}
-
-form.ui.form div.field.searchBar {
-  margin: auto;
-}
-
-@media only screen and (min-width: 666px) {
-  form.ui.form div.field.searchBar {
-    width: 500px;
-  }
-}
+  text-align: center; }
+  form.ui.form div.field.search-input {
+    margin: auto; }
+    @media only screen and (min-width: 666px) {
+      form.ui.form div.field.search-input {
+        width: 500px; } }

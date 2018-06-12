@@ -1,0 +1,9 @@
+form.ui.form {
+  text-align: center;
+  & div.field.search-input {
+    margin: auto;
+    @media only screen and (min-width: 666px) {
+      width: 500px;
+    }
+  }
+}
