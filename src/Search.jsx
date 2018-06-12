@@ -84,7 +84,7 @@ class Search extends Component {
         } else this.loadMore();
       }
     } else if (e.type === 'keydown') {
-      // Ignore if: no data, input box is focused, or we're ahead of the offset.
+      // Ignore if: no data / input box is focused, or we're ahead of the offset.
       if (!this.state.imgData || this.state.focused) return;
       if (this.state.imgData.length < this.state.offset) return;
 

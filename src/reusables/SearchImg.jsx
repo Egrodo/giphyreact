@@ -31,12 +31,12 @@ class SearchImg extends Component {
   componentWillReceiveProps(nextProps) {
     // If something new is searched, update the image.
     const { data } = nextProps;
-    const src = data.images.original.url;
+    const src = data.images.original.webp;
     if (this.state.src !== src) {
       this.setState({
         src,
         title: data.title,
-        url: data.url,
+        url: data.source || data.url,
         loading: true,
       });
     }

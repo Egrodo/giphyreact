@@ -53,6 +53,7 @@ class Trending extends Component {
 
   async loadMore() {
     // Load more and append to bottom of list.
+    // BUG: Around ~60 loaded the offset will start to desync or something.
     const call = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_API_KEY}&limit=12&offset=${this.state.offset}`;
     const res = await axios(call);
     if (res.status === 200) {
@@ -64,6 +65,7 @@ class Trending extends Component {
   }
 
   render() {
+    console.log(this.state.offset, this.state.imgData.length);
     return (
       <Container className="trending">
         <Header as="h4">Trending</Header>

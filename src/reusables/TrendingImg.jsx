@@ -15,9 +15,9 @@ class TrendingImg extends PureComponent {
   componentDidMount() {
     const { data } = this.props;
     this.setState({
-      src: data.images.original.url,
+      src: data.images.fixed_height_downsampled.webp,
       title: data.title,
-      url: data.url,
+      url: data.source || data.url,
     });
   }
 
